@@ -31,6 +31,7 @@ def create_user_popup():
 @authorization_required
 def create_user():
     new_user = request.form.to_dict()
+    new_user['type'] = 0
     if UserDB().read(name=new_user['name']):
         flash(f'{new_user["name"]} already exists!','error')
     else:
