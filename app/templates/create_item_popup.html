@@ -1,9 +1,9 @@
 {% block widget %}
-<div id="modal-create-user" class="modal">
+<div id="modal-create-item" class="modal">
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
-            <p class="modal-card-title">Create User</p>
+            <p class="modal-card-title" id="item-popup-title">Create</p>
             <button class="delete" aria-label="close"></button>
         </header>
         <form id="user-create-from" method="POST" action="{{ url_for('admin.create_user') }}">
@@ -29,7 +29,7 @@
             </section>
         </form>
         <footer class="modal-card-foot">
-            <button class="button is-success" form="user-create-from" type="submit">Add User</button>
+            <button class="button is-success" form="user-create-from" type="submit">Add Item</button>
             <button class="button" id="cancel">Cancel</button>
         </footer>
     </div>

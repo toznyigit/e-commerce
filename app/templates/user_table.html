@@ -1,0 +1,40 @@
+{% block user_table %}
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="notification is-danger">
+            {{ messages[0] }}
+        </div>
+    {% endif %}
+    {% endwith %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th class="has-text-centered">Username
+                    <button class="button is-small js-modal-trigger" data-target="modal-create-user">
+                        <span class="icon is-small">
+                            <i class="fa fa-plus"></i>
+                        </span>
+                    </button>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in user_table %}
+            <tr>
+                <td class="has-text-centered">
+                    <form action="{{ url_for('admin.delete_user') }}" method="post">
+                        <input type="hidden" name="name" value="{{ row.name }}">
+                        <button type="submit" class="button is-danger is-outlined is-small">
+                            <span class="icon is-small">
+                                <i class="fa fa-close"></i>
+                            </span>
+                        </button>
+                        <span>&nbsp;</span>
+                        <span class="has-text-weight-semibold">{{ row.name }}</span>                                    
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

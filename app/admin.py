@@ -18,13 +18,7 @@ def authorization_required(func):
 @login_required
 @authorization_required
 def panel():
-    return render_template('panel.html', user_table=UserDB().readAll(), popup=False)
-
-@admin.get('/create_user')
-@login_required
-@authorization_required
-def create_user_popup():
-    return render_template('panel.html', user_table=UserDB().readAll(), popup=True)
+    return render_template('panel.html', user_table=UserDB().readAll(), item_table=[])
 
 @admin.post('/create_user')
 @login_required
@@ -48,3 +42,15 @@ def delete_user():
     else:
         UserDB().delete(name=request.form['name'])
     return redirect(url_for('admin.panel'))
+
+@admin.post('/create_item')
+@login_required
+@authorization_required
+def create_item():
+    pass
+
+@admin.post('/delete_item')
+@login_required
+@authorization_required
+def delete_item():
+    pass

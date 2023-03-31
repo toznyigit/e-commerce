@@ -1,0 +1,51 @@
+{% block user_table %}
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="notification is-danger">
+            {{ messages[0] }}
+        </div>
+    {% endif %}
+    {% endwith %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th class="has-text-centered dropdown is-hoverable dropdown-trigger">
+                    <div class="select">
+                        <select name="categories" id="categories">
+                            <option value="clothing">Clothing</option>
+                            <option value="component">Computer Components</option>
+                            <option value="monitor">Monitors</option>
+                            <option value="snack">Snacks</option>
+                        </select>
+                    </div>
+                    <span>&nbsp;</span>
+                    <span>
+                        <button class="button js-modal-trigger" data-target="modal-create-item">
+                            <span class="icon is-small">
+                                <i class="fa fa-plus"></i>
+                            </span>
+                        </button>
+                    </span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in item_table %}
+            <tr>
+                <td class="has-text-centered">
+                    <form action="{{ url_for('admin.delete_user') }}" method="post">
+                        <input type="hidden" name="name" value="{{ row.name }}">
+                        <button type="submit" class="button is-danger is-outlined is-small">
+                            <span class="icon is-small">
+                                <i class="fa fa-close"></i>
+                            </span>
+                        </button>
+                        <span>&nbsp;</span>
+                        <span class="has-text-weight-semibold">{{ row.name }}</span>                                    
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

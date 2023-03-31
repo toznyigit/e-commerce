@@ -1,7 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Functions to open and close a modal
-    function openModal($el) {
-      console.log($el)
+    function openModal($el, modal) {
+      console.log(modal)
+      if(modal === 'modal-create-item'){
+        var category = document.getElementById("categories");
+        category = category.options[category.selectedIndex].text
+        document.getElementById('item-popup-title').innerText = 'Create ' + category
+      }
       $el.classList.add('is-active');
     }
   
@@ -19,9 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
     (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
       const modal = $trigger.dataset.target;
       const $target = document.getElementById(modal);
-  
       $trigger.addEventListener('click', () => {
-        openModal($target);
+        openModal($target, modal);
       });
     });
   
