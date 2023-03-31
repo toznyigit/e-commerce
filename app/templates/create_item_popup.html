@@ -6,30 +6,12 @@
             <p class="modal-card-title" id="item-popup-title">Create</p>
             <button class="delete" aria-label="close"></button>
         </header>
-        <form id="user-create-from" method="POST" action="{{ url_for('admin.create_user') }}">
+        <form id="item-create-from" method="POST" action="{{ url_for('admin.create_item') }}">
             <section class="modal-card-body">
-                <div class="field">
-                    <label class="label has-text-left">Username</label>
-                    <div class="field control has-icons-left has-icons-right">
-                        <input class="input" type="text" name="name" placeholder="Username" value="">
-                        <span class="icon is-small is-left">
-                            <i class="fa fa-user"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="field">
-                    <label class="label has-text-left">Password</label>
-                    <div class="field control has-icons-left has-icons-right">
-                        <input class="input" type="password" name="password" placeholder="Password" value="">
-                        <span class="icon is-small is-left">
-                            <i class="fa fa-lock"></i>
-                        </span>
-                    </div>
-                </div>
             </section>
         </form>
         <footer class="modal-card-foot">
-            <button class="button is-success" form="user-create-from" type="submit">Add Item</button>
+            <button class="button is-success" form="item-create-from" type="submit">Add Item</button>
             <button class="button" id="cancel">Cancel</button>
         </footer>
     </div>

@@ -1,21 +1,15 @@
-{% block user_table %}
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <div class="notification is-danger">
-            {{ messages[0] }}
-        </div>
-    {% endif %}
-    {% endwith %}
-    <table class="table table-hover">
+{% block item_table %}
+    <table class="table table-hover" id="item_table">
         <thead>
             <tr>
                 <th class="has-text-centered dropdown is-hoverable dropdown-trigger">
                     <div class="select">
                         <select name="categories" id="categories">
+                            <option disabled selected value> -- select a category -- </option>
                             <option value="clothing">Clothing</option>
-                            <option value="component">Computer Components</option>
-                            <option value="monitor">Monitors</option>
-                            <option value="snack">Snacks</option>
+                            <option value="component">Computer Component</option>
+                            <option value="monitor">Monitor</option>
+                            <option value="snack">Snack</option>
                         </select>
                     </div>
                     <span>&nbsp;</span>
@@ -30,22 +24,6 @@
             </tr>
         </thead>
         <tbody>
-            {% for row in item_table %}
-            <tr>
-                <td class="has-text-centered">
-                    <form action="{{ url_for('admin.delete_user') }}" method="post">
-                        <input type="hidden" name="name" value="{{ row.name }}">
-                        <button type="submit" class="button is-danger is-outlined is-small">
-                            <span class="icon is-small">
-                                <i class="fa fa-close"></i>
-                            </span>
-                        </button>
-                        <span>&nbsp;</span>
-                        <span class="has-text-weight-semibold">{{ row.name }}</span>                                    
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
         </tbody>
     </table>
 {% endblock %}
