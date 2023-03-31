@@ -2,8 +2,16 @@
 
 {% block content %}
     <div class="columns">
+        {% include 'create_user_popup.html' %}
         <div class="column notification is-warning">
             <div class="content has-text-centered">User Control Panel
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="notification is-danger">
+                        {{ messages[0] }}
+                    </div>
+                {% endif %}
+                {% endwith %}
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -13,9 +21,11 @@
                     <tbody>
                         <tr>
                             <td class="has-text-centered">
-                                <a href="/user/create">
-                                    <i class="fa fa-plus"></i>
-                                </a>
+                                <button class="button is-small js-modal-trigger" data-target="modal-create-user">
+                                    <span class="icon is-small">
+                                        <i class="fa fa-plus"></i>
+                                    </span>
+                                </button>
                             </td>
                         </tr>
                         {% for row in user_table %}
@@ -50,4 +60,5 @@
             background-color: #0000002a;
         }
     </style>
+    <script src="{{ url_for('static', filename='js/popup.js') }}"></script>
 {% endblock %}

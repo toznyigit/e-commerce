@@ -18,11 +18,32 @@ def authorization_required(func):
 @login_required
 @authorization_required
 def panel():
-    return render_template('panel.html', user_table=UserDB().readAll())
+    return render_template('panel.html', user_table=UserDB().readAll(), popup=False)
+
+@admin.get('/create_user')
+@login_required
+@authorization_required
+def create_user_popup():
+    return render_template('panel.html', user_table=UserDB().readAll(), popup=True)
+
+@admin.post('/create_user')
+@login_required
+@authorization_required
+def create_user():
+    new_user = request.form.to_dict()
+    if UserDB().read(name=new_user['name']):
+        flash(f'{new_user["name"]} already exists!','error')
+    else:
+        UserDB().create(**new_user)
+    return redirect(url_for('admin.panel'))
 
 @admin.post('/delete_user')
 @login_required
 @authorization_required
 def delete_user():
-    UserDB().delete(name=request.form['name'])
+    target_name = request.form['name']
+    if current_user._user.username == target_name:
+        flash('You can not delete yourself!','error')
+    else:
+        UserDB().delete(name=request.form['name'])
     return redirect(url_for('admin.panel'))
