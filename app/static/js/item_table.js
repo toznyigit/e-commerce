@@ -8,6 +8,7 @@ function start(){
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
             // Typical action to be performed when the document is ready:
+                table.innerHTML = ""
                 JSON.parse(xhttp.response).forEach(el => {
                     var tr = document.createElement('tr')
                     tr.innerHTML = tr_template
@@ -22,11 +23,6 @@ function start(){
         xhttp.setRequestHeader('Content-type', 'application/json');
         xhttp.send(JSON.stringify({'category': dropdown.options[dropdown.selectedIndex].text}));
     }, false);
-}
-
-function addActivityItem(){
-    //option is selected
-    alert("yeah");
 }
 
 window.addEventListener("load", start, false);

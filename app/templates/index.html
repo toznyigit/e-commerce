@@ -1,10 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1 class="title">
-        Flask Login
-    </h1>
-    <h2 class="subtitle">
-        Try!
-    </h2>
+    <div class="select">
+        <select name="categories" id="categories">
+            <option disabled selected value> -- select a category -- </option>
+            <option value="clothing">Clothing</option>
+            <option value="component">Computer Component</option>
+            <option value="monitor">Monitor</option>
+            <option value="snack">Snack</option>
+        </select>
+    </div>
+    <div class="is-divider" data-content="">&nbsp;</div>
+    <div class="columns" id="item-list"></div>
+
+    <style>
+        .column.info {
+            margin: 0.25rem;
+            padding: 0.25rem;
+        }
+        .is-response-size {
+            width: 80%;
+            height: auto;
+        }
+        hr.solid {
+            border-top: 0.1rem solid #bbb;
+            margin: 0.5rem;
+        }
+    </style>
+
+    <script src="{{ url_for('static', filename='js/item_list.js') }}"></script>
 {% endblock %}
