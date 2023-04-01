@@ -23,7 +23,7 @@ function start(){
                         new_item_box.querySelector('#item-rating').innerText = el.rating?el.rating:0.0
                         new_item_box.querySelector('#item-image').setAttribute('src', el.image)
                         new_item_box.querySelector('#item-seller').innerText = el.seller
-                        new_item_box.querySelector('#item-price').innerText = el.price
+                        new_item_box.querySelector('#item-price').innerHTML = el.price+`\n<span class="icon is-small"><i class="fa fa-try"></i></span>`
                         new_item_row.appendChild(new_item_box)
                     })
                     table.appendChild(new_item_row)
@@ -77,7 +77,9 @@ const item_box = `
         <div class="columns">
             <div class="column info is-one-third" id="item-seller"></div>
             <div class="column info is-one-third"></div>
-            <div class="column info is-one-third" id="item-price"></div>
+            <div class="column info is-one-third" id="item-price">
+                
+            </div>
         </div>
     </div>
 </div>
