@@ -52,8 +52,10 @@ def delete_user():
 @login_required
 @authorization_required
 def get_item():
-    items = ItemDB().readAll(**request.get_json())
-    return make_response(items, 200)
+    if request.get_json()['category'] == 'All':
+        return make_response(ItemDB().readAll(), 200)
+    else:
+        return make_response(ItemDB().readCat(**request.get_json()), 200)
 
 @admin.post('/create_item')
 @login_required

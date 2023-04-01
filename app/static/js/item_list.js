@@ -24,27 +24,26 @@ function start(){
                         new_item_box.querySelector('#item-image').setAttribute('src', el.image)
                         new_item_box.querySelector('#item-seller').innerText = el.seller
                         new_item_box.querySelector('#item-price').innerHTML = el.price+`\n<span class="icon is-small"><i class="fa fa-try"></i></span>`
+                        if(el.type !== 'Snack'){
+                            new_item_box.querySelectorAll('.is-hidden').forEach(el => el.classList.remove('is-hidden'))
+                            var spec_div = new_item_box.querySelector('#spec-div')
+                            spec_div.querySelector('#item-spec-1').innerText = el.type === 'Clothing' ? el.size : el.ident
+                            spec_div.querySelector('#item-spec-2').innerText = el.type === 'Clothing' ? '' : el.amount
+                            spec_div.querySelector('#item-spec-3').innerText = el.type === 'Clothing' ? el.color : el.unit
+                        }
+
                         new_item_row.appendChild(new_item_box)
                     })
                     table.appendChild(new_item_row)
-                }
-                // JSON.parse(xhttp.response).forEach(el => {
-                //     var new_item_box = document.createElement('div')
-                //     new_item_box.innerHTML = item_box
-                //     new_item_box.querySelector('#item-name').innerText = el.name
-                //     new_item_box.querySelector('#item-rating').innerText = el.rating
-                //     new_item_box.querySelector('#item-image').setAttribute('src', el.image)
-                //     new_item_box.querySelector('#item-seller').innerText = el.seller
-                //     new_item_box.querySelector('#item-price').innerText = el.price
-                //     table.appendChild(new_item_box)
-                // })
-                
+                }                
             }
         };
         xhttp.open("POST", "/get_item", true);
         xhttp.setRequestHeader('Content-type', 'application/json');
         xhttp.send(JSON.stringify({'category': dropdown.options[dropdown.selectedIndex].text}));
     }, false);
+
+    dropdown.dispatchEvent(new Event('change'))
 }
 
 window.addEventListener("load", start, false);
@@ -53,7 +52,7 @@ const item_row = `
 <div class="columns"></div>
 `
 const item_box = `
-<div class="box">
+<div class="box has-text-centered">
     <div class="card-image has-text-centered">
         <div class="columns">
             <div class="column info is-one-third" id="item-name"></div>
@@ -68,10 +67,10 @@ const item_box = `
             <p id="item-desc"></p>
         </div>
         <hr class="solid"></hr>
-        <div class="columns is-hidden">
-            <div class="column info is-one-third" id="item-spec-1"></div>
-            <div class="column info is-one-third" id="item-spec-2"></div>
-            <div class="column info is-one-third" id="item-spec-3"></div>
+        <div class="columns is-hidden" id="spec-div">
+            <div class="column info is-one-third has-text-right" id="item-spec-1"></div>
+            <div class="column info is-one-third has-text-right" id="item-spec-2"></div>
+            <div class="column info is-one-third has-text-left" id="item-spec-3"></div>
         </div>
         <hr class="solid is-hidden"></hr>
         <div class="columns">

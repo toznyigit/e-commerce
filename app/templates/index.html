@@ -3,7 +3,7 @@
 {% block content %}
     <div class="select">
         <select name="categories" id="categories">
-            <option disabled selected value> -- select a category -- </option>
+            <option selected value>All</option>
             <option value="clothing">Clothing</option>
             <option value="component">Computer Component</option>
             <option value="monitor">Monitor</option>
@@ -11,7 +11,7 @@
         </select>
     </div>
     <div class="is-divider" data-content="">&nbsp;</div>
-    <div class="columns" id="item-list"></div>
+    <div id="item-list"></div>
 
     <style>
         .column.info {

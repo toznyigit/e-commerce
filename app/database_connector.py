@@ -33,7 +33,12 @@ class ItemDB(Connector):
         super().__init__()
         self.col = self.db.Items
 
-    def readAll(self, **kwargs):
+    def readCat(self, **kwargs):
         cursor = self.col.find({"type": kwargs['category']})
+        json_data = json.loads(json_util.dumps(cursor))
+        return json_data
+    
+    def readAll(self):
+        cursor = self.col.find({})
         json_data = json.loads(json_util.dumps(cursor))
         return json_data
