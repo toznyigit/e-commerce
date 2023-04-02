@@ -48,9 +48,10 @@ def post_comment():
         'user': current_user._user.username,
         'datetime': datetime.now().timestamp(),
     }
+    comment.update(**request.get_json())
     if CommentDB().read(item=request.get_json()['item'],user= current_user._user.username):
         CommentDB().delete(item=request.get_json()['item'],user= current_user._user.username)
-    CommentDB().create(**(request.get_json() | comment))
+    CommentDB().create(**comment)
     return make_response({}, 200)
 
 @main.post('/delete_comment')
