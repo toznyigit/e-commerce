@@ -2,7 +2,7 @@ import json
 from flask import Blueprint, render_template, make_response, jsonify, flash, redirect, request, url_for
 from flask_login import login_required, current_user
 from functools import wraps
-from .database_connector import ItemDB, UserDB
+from .database_connector import CommentDB, ItemDB, UserDB
 
 admin = Blueprint('admin', __name__)
 
@@ -46,6 +46,7 @@ def delete_user():
         flash('You can not delete yourself!','error')
     else:
         UserDB().delete(name=request.form['name'])
+        CommentDB().deleteAll(user=request.form['name'])
     return redirect(url_for('admin.panel'))
 
 @admin.post('/create_item')
@@ -66,4 +67,5 @@ def create_item():
 @authorization_required
 def delete_item():
     ItemDB().delete(name=request.form['name'])
+    CommentDB().deleteAll(item=request.form['name'])
     return redirect(url_for('admin.panel'))

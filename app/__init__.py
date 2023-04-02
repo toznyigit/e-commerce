@@ -23,7 +23,8 @@ def create_app():
     @login_manager.user_loader
     def load_user(username):
         userdb = UserDB()
-        log_user = User(DBUser(username, userdb.read(name=username)['type']))
+        user = userdb.read(name=username)['type'] if userdb.read(name=username) else None
+        log_user = User(DBUser(username, user))
         return log_user
 
     return app
