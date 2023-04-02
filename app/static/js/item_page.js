@@ -26,7 +26,7 @@ window.addEventListener("DOMContentLoaded", ()=>{
             }
         }
 
-        xhttp.open("POST", "/comment", true);
+        xhttp.open("POST", comment.getAttribute('value'), true);
         xhttp.setRequestHeader('Content-type', 'application/json');
         xhttp.send(JSON.stringify({
                     'item': document.querySelector('#item-name').textContent,
