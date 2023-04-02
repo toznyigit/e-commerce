@@ -48,15 +48,6 @@ def delete_user():
         UserDB().delete(name=request.form['name'])
     return redirect(url_for('admin.panel'))
 
-@admin.post('/get_item')
-@login_required
-@authorization_required
-def get_item():
-    if request.get_json()['category'] == 'All':
-        return make_response(ItemDB().readAll(), 200)
-    else:
-        return make_response(ItemDB().readCat(**request.get_json()), 200)
-
 @admin.post('/create_item')
 @login_required
 @authorization_required

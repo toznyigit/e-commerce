@@ -42,3 +42,21 @@ class ItemDB(Connector):
         cursor = self.col.find({})
         json_data = json.loads(json_util.dumps(cursor))
         return json_data
+    
+class CommentDB(Connector):
+    def __init__(self):
+        super().__init__()
+        self.col = self.db.Comments
+
+    def readAllbyItem(self, **kwargs):
+        cursor = self.col.find({"item": kwargs['item']})
+        json_data = json.loads(json_util.dumps(cursor))
+        return json_data
+
+    def readAllbyUser(self, **kwargs):
+        cursor = self.col.find({"user": kwargs['user']})
+        json_data = json.loads(json_util.dumps(cursor))
+        return json_data
+    
+    def deleteAll(self, **kwargs):
+        self.col.delete_many(kwargs)

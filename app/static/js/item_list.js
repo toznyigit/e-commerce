@@ -14,13 +14,15 @@ function start(){
                     var new_item_row = document.createElement('div')
                     new_item_row.classList.add('columns')
                     item_list.slice(i*4,i*4+4).forEach(el => {
+                        console.log(el)
                         var new_item_box = document.createElement('div')
+                        new_item_box.setAttribute('onclick', `redirect("${el.name}")`)
                         new_item_box.classList.add('column')
                         new_item_box.classList.add('is-one-quarter')
                         new_item_box.innerHTML = item_box
                         new_item_box.querySelector('#item-name').innerText = el.name
                         new_item_box.querySelector('#item-desc').innerText = el.desc
-                        new_item_box.querySelector('#item-rating').innerText = el.rating?el.rating:0.0
+                        new_item_box.querySelector('#item-rating').innerText = el.rating
                         new_item_box.querySelector('#item-image').setAttribute('src', el.image)
                         new_item_box.querySelector('#item-seller').innerText = el.seller
                         new_item_box.querySelector('#item-price').innerHTML = el.price+`\n<span class="icon is-small"><i class="fa fa-try"></i></span>`
@@ -31,7 +33,6 @@ function start(){
                             spec_div.querySelector('#item-spec-2').innerText = el.type === 'Clothing' ? '' : el.amount
                             spec_div.querySelector('#item-spec-3').innerText = el.type === 'Clothing' ? el.color : el.unit
                         }
-
                         new_item_row.appendChild(new_item_box)
                     })
                     table.appendChild(new_item_row)
@@ -47,6 +48,10 @@ function start(){
 }
 
 window.addEventListener("load", start, false);
+
+function redirect(name){
+    window.location = `/item?name=${name}`
+}
 
 const item_row = `
 <div class="columns"></div>

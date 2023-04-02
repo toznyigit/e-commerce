@@ -13,20 +13,27 @@
     <div class="is-divider" data-content="">&nbsp;</div>
     <div id="item-list"></div>
 
-    <style>
-        .column.info {
-            margin: 0.25rem;
-            padding: 0.25rem;
-        }
-        .is-response-size {
-            width: 80%;
-            height: auto;
-        }
-        hr.solid {
-            border-top: 0.1rem solid #bbb;
-            margin: 0.5rem;
-        }
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+    {% if current_user.is_admin %}
+    <style> 
+        div > .box {background-color:  #54b3f2!important;}
+        div > .box:hover {background-color:  #54b3f294!important;}
+        div > .box:active {background-color:  #5493f2!important;}
     </style>
+    {% elif name %}
+    <style> 
+        div > .box {background-color:  #31dfc5!important;}
+        div > .box:hover {background-color:  #31dfc594!important;}
+        div > .box:active {background-color:  #31cedf!important;}
+    </style>
+    {% else %}
+    <style> div > .box {background-color:  #FFE785!important;} </style>
+    <style> 
+        div > .box {background-color:  #FFE785!important;}
+        div > .box:hover {background-color:  #FFE78594!important;}
+        div > .box:active {background-color:  #ffd685!important;}
+    </style>
+    {% endif %}
 
     <script src="{{ url_for('static', filename='js/item_list.js') }}"></script>
 {% endblock %}

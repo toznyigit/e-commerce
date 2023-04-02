@@ -3,13 +3,81 @@
 {% block content %}
     {% with messages = get_flashed_messages() %}
     {% if messages %}
-
         <div class="notification is-danger box column is-4 is-offset-4">
             {{ messages[0] }}
         </div>
     {% endif %}
     {% endwith %}
-    <h1 class="title">
-        Welcome, {{ name }}!
-    </h1>
+    
+    <div class="">
+        <div class="">
+            <h1 class="title">
+                Welcome, {{ name }}!
+            </h1>
+            <h4 class="title is-4">
+                Your average rating: {{ rating }}!
+            </h4>
+        </div>
+        </br></br>
+        <div class="comment-box">
+            {% for comment in comments %}
+                <div class="box comment-div" value="{{ comment.item }}">
+                    <div class="columns">
+                        <div class="column is-11">
+                            <div class="check-comment ">
+                                <article class="media">
+                                    <div class="media-content">
+                                        <div class="content">
+                                        <p>
+                                            <span><strong>{{ comment.item }}</strong> <small>{{ comment.datetime }}</small></span>
+                                            <span>
+                                                
+                                            </span>
+                                            <br>
+                                            {{ comment.comment }}
+                                        </p>
+                                        <div>Rating: {{ comment.rating }}</div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                        <div class="column is-1">
+                            <form action="{{ url_for('main.delete_comment') }}" method="post">
+                                <input type="hidden" name="item" value="{{ comment.item }}">
+                                <input type="hidden" name="user" value="{{ comment.user }}">
+                                <button type="submit" class="button is-danger is-outlined is-small">
+                                    <span class="icon is-small">
+                                        <i class="fa fa-close"></i>
+                                    </span>
+                                </button>                                 
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+    {% if current_user.is_admin %}
+    <style> 
+        div > .box {background-color:  #54b3f2!important;}
+        div > .box:hover {background-color:  #54b3f294!important;}
+        div > .box:active {background-color:  #5493f2!important;}
+    </style>
+    {% elif name %}
+    <style> 
+        div > .box {background-color:  #31dfc5!important;}
+        div > .box:hover {background-color:  #31dfc594!important;}
+        div > .box:active {background-color:  #31cedf!important;}
+    </style>
+    {% else %}
+    <style> div > .box {background-color:  #FFE785!important;} </style>
+    <style> 
+        div > .box {background-color:  #FFE785!important;}
+        div > .box:hover {background-color:  #FFE78594!important;}
+        div > .box:active {background-color:  #ffd685!important;}
+    </style>
+    {% endif %}
+    <script src="{{ url_for('static', filename='js/profile.js') }}"></script>
 {% endblock %}

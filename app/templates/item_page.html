@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="columns">
+        <div class="column is-one-third">
+            <div class="box item-info">
+                <div class="card-image has-text-centered">
+                    <div class="columns">
+                        <div class="column info is-one-third" id="item-name">{{item.name}}</div>
+                        <div class="column info is-one-third"></div>
+                        <div class="column info is-one-third" id="item-rating">{{item.rating | default("0")}}</div>
+                    </div>
+                    <figure class="image is-response-size is-inline-block">
+                        <img id="item-image" src="{{item.image}}" alt="Image">
+                    </figure>
+                    <hr class="solid"></hr>
+                    <div>
+                        <p id="item-desc">{{item.desc}}</p>
+                    </div>
+                    <hr class="solid"></hr>
+                    <div class="columns is-hidden" id="spec-div">
+                        <div class="column info is-one-third has-text-right" id="item-spec-1"></div>
+                        <div class="column info is-one-third has-text-right" id="item-spec-2"></div>
+                        <div class="column info is-one-third has-text-left" id="item-spec-3"></div>
+                    </div>
+                    <hr class="solid is-hidden"></hr>
+                    <div class="columns">
+                        <div class="column info is-one-third" id="item-seller">{{item.seller}}</div>
+                        <div class="column info is-one-third"></div>
+                        <div class="column info is-one-third" id="item-price">{{item.price}}
+                            <span class="icon is-small">
+                                <i class="fa fa-try"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="column is-two-third">
+            {% if name %}
+            <div class="box">
+                <div class="add-comment">
+                    <div class="field">
+                        <div class="control">
+                        <input class="input" type="text" placeholder="Dear {{ name }}, please give a comment"></input>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column is-half rating is-flex-start" value="0">
+                            <i class="fa fa-star-o is-star-size" value="1" aria-hidden="true"></i>
+                            <i class="fa fa-star-o is-star-size" value="2" aria-hidden="true"></i>
+                            <i class="fa fa-star-o is-star-size" value="3" aria-hidden="true"></i>
+                            <i class="fa fa-star-o is-star-size" value="4" aria-hidden="true"></i>
+                            <i class="fa fa-star-o is-star-size" value="5" aria-hidden="true"></i>
+                        </div>
+                        <div class="column is-half">
+                            <div class="is-flex-end">
+                                <div class="control">
+                                <button class="button is-link" id="send-comment">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <div class="comment-box">
+                <div class="box">
+                    <div class="check-comment">
+                        <article class="media">
+                        <div class="media-content">
+                            <div class="content">
+                            <p>
+                                <span><strong>John Smith</strong> <small>31m</small></span>
+                                <br>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
+                            </p>
+                            <div>Rating: 5</div>
+                            </div>
+                        </div>
+                        </article>
+                    </div>
+                </div>
+                {% for comment in comments %}
+                    <div class="box">
+                        <div class="check-comment">
+                            <article class="media">
+                            <div class="media-content">
+                                <div class="content">
+                                <p>
+                                    <span><strong>{{ comment.user }}</strong> <small>{{ comment.datetime }}</small></span>
+                                    <br>
+                                    {{ comment.comment }}
+                                </p>
+                                <div>Rating: {{ comment.rating }}</div>
+                                </div>
+                            </div>
+                            </article>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+    {% if current_user.is_admin %}
+    <style> 
+        div > .box {background-color:  #54b3f2!important;}
+        div > .box:hover {background-color:  #54b3f294!important;}
+        div > .box:active {background-color:  #5493f2!important;}
+    </style>
+    {% elif name %}
+    <style> 
+        div > .box {background-color:  #31dfc5!important;}
+        div > .box:hover {background-color:  #31dfc594!important;}
+        div > .box:active {background-color:  #31cedf!important;}
+    </style>
+    {% else %}
+    <style> div > .box {background-color:  #FFE785!important;} </style>
+    <style> 
+        div > .box {background-color:  #FFE785!important;}
+        div > .box:hover {background-color:  #FFE78594!important;}
+        div > .box:active {background-color:  #ffd685!important;}
+    </style>
+    {% endif %}
+    <script src="{{ url_for('static', filename='js/item_page.js') }}"></script>
+{% endblock %}

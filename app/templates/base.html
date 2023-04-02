@@ -12,8 +12,10 @@
     <body>
         {% if current_user.is_admin %}
         <section class="hero is-info is-fullheight">
-        {% else %}
+        {% elif name %}
         <section class="hero is-primary is-fullheight">
+        {% else %}
+        <section class="hero is-warning is-fullheight">
         {% endif %}
     
             <div class="hero-head">
